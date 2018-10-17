@@ -1,6 +1,5 @@
 package com.newtop.demo.entity;
 
-import java.util.List;
 
 import lombok.Data;
 
@@ -17,6 +16,4 @@ public class Category {
 	private String cname;
 	//父分类
 	private String parentId;
-	//包含此分类的文章
-	private List<Article> articles;
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.newtop.demo.bo.ArticleBO;
 import com.newtop.demo.entity.Article;
 import com.newtop.demo.service.ArticleService;
+import com.newtop.demo.vo.ArticleVO;
 
 @RestController
 @RequestMapping(value = "/article")
@@ -25,9 +26,9 @@ public class ArticleController {
 	 * @return 
 	 */	
 	@GetMapping(value = "query/{id}")
-	public Article findArticleById(@PathVariable String id) {
-		Article article = articleService.findArticleById(id);
-		return article;
+	public ArticleVO findArticleById(@PathVariable String id) {
+		ArticleVO vo = articleService.findArticleById(id);
+		return vo;
 	}
 	
 	/**  
@@ -49,7 +50,7 @@ public class ArticleController {
 	}
 	
 	/**  
-	 * 根据文章ID删除文章
+	 * 根据文章ID物理删除文章
 	 * @param id 
 	 */ 
 	@DeleteMapping(value = "delete/{id}")

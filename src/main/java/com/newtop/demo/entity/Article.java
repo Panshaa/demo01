@@ -25,7 +25,5 @@ public class Article {
 	//是否逻辑删除 是：true ； 否：false
 	private Boolean isDeleted;
 	//创建人
-	private User user;
-	//文章分类
-	private List<Category> categories;
+	private String createId;
 }

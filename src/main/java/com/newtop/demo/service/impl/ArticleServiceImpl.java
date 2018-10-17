@@ -2,7 +2,6 @@ package com.newtop.demo.service.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -14,125 +13,164 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.newtop.demo.bo.ArticleBO;
-import com.newtop.demo.entity.Article;
 import com.newtop.demo.entity.Category;
 import com.newtop.demo.entity.User;
 import com.newtop.demo.service.ArticleService;
-/**   
+import com.newtop.demo.vo.ArticleVO;
+import com.newtop.demo.vo.CategoryVO;
+
+/**
  * @author pdl
- * @date 2018年10月16日  
- */ 
+ * @date 2018年10月16日
+ */
 @Service
 @Transactional
-public class ArticleServiceImpl implements ArticleService{
+public class ArticleServiceImpl implements ArticleService {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	/**
 	 * 通过ID查找文章
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public Article findArticleById(String id) {
-		
+	public ArticleVO findArticleById(String id) {
+
 		String sql = "select * from article where aid = ?";
-		Article article = jdbcTemplate.query(sql,new RowMapper<Article>() {
+		ArticleVO vo = jdbcTemplate.query(sql, new RowMapper<ArticleVO>() {
 
 			@Override
-			public Article mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Article article = new Article();
-				article.setAid(rs.getString("aid"));
-				article.setArticleTitle(rs.getString("articleTitle"));
-				article.setArticleBody(rs.getString("articleBody"));
-				article.setCreateTime(rs.getTimestamp("createTime"));
-				article.setStatu(rs.getInt("statu"));
-				article.setIsDeleted(rs.getInt("isDeleted")==1?true:false);
-				
-				//根据用户ID查找文章作者
+			public ArticleVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				ArticleVO vo = new ArticleVO();
+				vo.setAid(rs.getString("aid"));
+				vo.setArticleTitle(rs.getString("articleTitle"));
+				vo.setArticleBody(rs.getString("articleBody"));
+				vo.setCreateTime(rs.getTimestamp("createTime"));
+				vo.setStatu(rs.getInt("statu"));
+				vo.setIsDeleted(rs.getInt("isDeleted") == 1 ? true : false);
+
+				// 根据用户ID查找文章作者
 				String sql = "select * from user where uid = ?";
 				User user = jdbcTemplate.query(sql, new RowMapper<User>() {
 
 					@Override
 					public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-						return new User(rs.getString("uid"),rs.getString("uname"));
+						return new User(rs.getString("uid"), rs.getString("uname"));
 					}
-					
-				},rs.getString("createId")).get(0);
-				
-				article.setUser(user);
-				return article;
+
+				}, rs.getString("createId")).get(0);
+
+				vo.setCreateUser(user);
+				return vo;
 			}
-			
-		},id).get(0);
-		//判断是否存在这个ID对应的文章，不存在则返回NULL
-		if(article == null) return null;
+
+		}, id).get(0);
 		
-		//在中间表查找文章分类信息
+		// 判断是否存在这个ID对应的文章，不存在则返回NULL
+		if (vo == null) return null;
+
+		// 在中间表查找文章分类信息
 		String sql2 = "select * from category_article ca,category c,article a where a.aid = ca.aid and c.cid = ca.cid and ca.aid = ?";
-		List<Category> list = jdbcTemplate.query(sql2, new RowMapper<Category>() {
+		List<CategoryVO> list = jdbcTemplate.query(sql2, new RowMapper<CategoryVO>() {
 
 			@Override
-			public Category mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Category category =  new Category();
-				category.setCid(rs.getString("cid"));
-				category.setCname(rs.getString("cname"));
-				return category;
+			public CategoryVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				CategoryVO categoryVO = new CategoryVO();
+				categoryVO.setCid(rs.getString("cid"));
+				categoryVO.setCname(rs.getString("cname"));
+
+				CategoryVO parentVO = findParentCategory(rs.getString("parentId"));
+
+				categoryVO.setParentCategory(parentVO);
+				return categoryVO;
 			}
-			
-		},id);
-		
-		article.setCategories(list);	
-		
-		return article;
+
+		}, id);
+
+		vo.setCategories(list);
+
+		return vo;
 	}
-	
+
+	/**
+	 * 通过父分类ID使用递归来查找多层级父分类
+	 */
+	private CategoryVO findParentCategory(String parentId) {
+		
+		String sql = "select * from category where cid = ?";
+		List<CategoryVO> list = jdbcTemplate.query(sql, new RowMapper<CategoryVO>() {
+
+			@Override
+			public CategoryVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				CategoryVO vo = new CategoryVO();
+				vo.setCid(rs.getString("cid"));
+				vo.setCname(rs.getString("cname"));
+				// 顶层分类终止递归
+				if (rs.getString("parentId") == "0") {
+					vo.setParentCategory(null);
+				} else {
+					CategoryVO parentVO = findParentCategory(rs.getString("parentId"));
+					vo.setParentCategory(parentVO);
+				}
+				return vo;
+			}
+
+		}, parentId);
+		
+		if(list!=null&&list.size()>0) {
+			return list.get(0);
+		}else {
+			return null;
+		}
+	}
+
 	/**
 	 * 新添一篇文章
 	 */
 	@Override
 	public void insertArticle(ArticleBO bo) {
-		//使用uuid为文章添加主键id
+		// 使用uuid为文章添加主键id
 		String uuid = UUID.randomUUID().toString().replace("-", "");
 		String sql = "insert into article values(?,?,?,?,?)";
-		jdbcTemplate.update(sql,uuid,bo.getArticleTitle(),bo.getArticleBody(),new Date(),bo.getCreateId());
-		
-		//为文章添加分类
+		jdbcTemplate.update(sql, uuid, bo.getArticleTitle(), bo.getArticleBody(), new Date(), bo.getCreateId());
+
+		// 为文章添加分类
 		for (String cid : bo.getCids()) {
 			String c_a_uuid = UUID.randomUUID().toString().replace("-", "");
 			String c_a_sql = "insert into category_article values(?,?,?)";
-			jdbcTemplate.update(c_a_sql,c_a_uuid,uuid,cid);
+			jdbcTemplate.update(c_a_sql, c_a_uuid, uuid, cid);
 		}
 	}
-	
+
 	/**
 	 * 更新文章信息
 	 */
 	@Override
 	public void updateArticle(ArticleBO bo) {
 		String sql1 = "update article set articleTitle = ?,articleBody = ? where aid = ?";
-		jdbcTemplate.update(sql1,bo.getArticleTitle(),bo.getArticleBody(),bo.getAid());
-		//删除原来的分类
+		jdbcTemplate.update(sql1, bo.getArticleTitle(), bo.getArticleBody(), bo.getAid());
+		// 删除原来的分类
 		String sql2 = "delete from category_article where aid = ?";
-		jdbcTemplate.update(sql2,bo.getAid());
-		
-		//为文章添加改变更新后的分类
+		jdbcTemplate.update(sql2, bo.getAid());
+
+		// 为文章添加改变更新后的分类
 		for (String cid : bo.getCids()) {
 			String c_a_uuid = UUID.randomUUID().toString().replace("-", "");
 			String c_a_sql = "insert into category_article values(?,?,?)";
-			jdbcTemplate.update(c_a_sql,c_a_uuid,bo.getAid(),cid);
+			jdbcTemplate.update(c_a_sql, c_a_uuid, bo.getAid(), cid);
 		}
 	}
-	
+
 	/**
 	 * 根据文章ID删除文章及相关中间表信息
 	 */
 	@Override
 	public void deleteArticleById(String id) {
 		String sql1 = "delete from category_article where aid = ?";
-		jdbcTemplate.update(sql1,id);
+		jdbcTemplate.update(sql1, id);
 		String sql2 = "delete from article where aid = ?";
-		jdbcTemplate.update(sql2,id);
+		jdbcTemplate.update(sql2, id);
 	}
 
 }
