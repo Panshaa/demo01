@@ -37,7 +37,7 @@ public class ArticleServiceImpl implements ArticleService {
 	@Transactional(readOnly = true)
 	public ArticleVO findArticleById(String id) {
 
-		String sql = "select * from article where aid = ?";
+		String sql = "select * from article where aid = ? and isDeleted = 0";
 		ArticleVO vo = jdbcTemplate.query(sql, new RowMapper<ArticleVO>() {
 
 			@Override

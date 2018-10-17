@@ -1,7 +1,6 @@
 package com.newtop.demo.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import lombok.Data;
 
@@ -22,6 +21,13 @@ public class Article {
 	private Date createTime;
 	//文章状态  草稿：0 ； 发布：1 ； 撤回：2
 	private Integer statu;
+	//草稿
+	public static final Integer DRAFT = 0;
+	//发布
+	public static final Integer RELEASE = 1;
+	//撤回
+	public static final Integer WITHDRAW = 2;
+	
 	//是否逻辑删除 是：true ； 否：false
 	private Boolean isDeleted;
 	//创建人
