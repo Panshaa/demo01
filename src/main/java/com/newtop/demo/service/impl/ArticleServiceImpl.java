@@ -62,6 +62,8 @@ public class ArticleServiceImpl implements ArticleService{
 			}
 			
 		},id).get(0);
+		//判断是否存在这个ID对应的文章，不存在则返回NULL
+		if(article == null) return null;
 		
 		//在中间表查找文章分类信息
 		String sql2 = "select * from category_article ca,category c,article a where a.aid = ca.aid and c.cid = ca.cid and ca.aid = ?";
