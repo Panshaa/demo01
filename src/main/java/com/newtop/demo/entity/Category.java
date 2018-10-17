@@ -11,7 +11,12 @@ import lombok.Data;
  */ 
 @Data
 public class Category {
+	//分类id
 	private String cid;
+	//分类名
 	private String cname;
+	//父分类
+	private String parentId;
+	//包含此分类的文章
 	private List<Article> articles;
 }

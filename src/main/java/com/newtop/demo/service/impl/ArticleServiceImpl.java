@@ -2,6 +2,7 @@ package com.newtop.demo.service.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -44,7 +45,9 @@ public class ArticleServiceImpl implements ArticleService{
 				article.setAid(rs.getString("aid"));
 				article.setArticleTitle(rs.getString("articleTitle"));
 				article.setArticleBody(rs.getString("articleBody"));
-				article.setCreateTime(rs.getDate("createTime"));
+				article.setCreateTime(rs.getTimestamp("createTime"));
+				article.setStatu(rs.getInt("statu"));
+				article.setIsDeleted(rs.getInt("isDeleted")==1?true:false);
 				
 				//根据用户ID查找文章作者
 				String sql = "select * from user where uid = ?";

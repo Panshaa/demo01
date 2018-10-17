@@ -25,7 +25,7 @@ public class ArticleController {
 	 * @return 
 	 */	
 	@GetMapping(value = "query/{id}")
-	public Article findArticleById(@PathVariable("id") String id) {
+	public Article findArticleById(@PathVariable String id) {
 		Article article = articleService.findArticleById(id);
 		return article;
 	}
