@@ -66,9 +66,10 @@ public class ArticleServiceImpl implements ArticleService {
 			}
 
 		}, id).get(0);
-		
+
 		// 判断是否存在这个ID对应的文章，不存在则返回NULL
-		if (vo == null) return null;
+		if (vo == null)
+			return null;
 
 		// 在中间表查找文章分类信息
 		String sql2 = "select * from category_article ca,category c,article a where a.aid = ca.aid and c.cid = ca.cid and ca.aid = ?";
@@ -97,7 +98,7 @@ public class ArticleServiceImpl implements ArticleService {
 	 * 通过父分类ID使用递归来查找多层级父分类
 	 */
 	private CategoryVO findParentCategory(String parentId) {
-		
+
 		String sql = "select * from category where cid = ?";
 		List<CategoryVO> list = jdbcTemplate.query(sql, new RowMapper<CategoryVO>() {
 
@@ -106,21 +107,17 @@ public class ArticleServiceImpl implements ArticleService {
 				CategoryVO vo = new CategoryVO();
 				vo.setCid(rs.getString("cid"));
 				vo.setCname(rs.getString("cname"));
-				// 顶层分类终止递归
-				if (rs.getString("parentId") == "0") {
-					vo.setParentCategory(null);
-				} else {
-					CategoryVO parentVO = findParentCategory(rs.getString("parentId"));
-					vo.setParentCategory(parentVO);
-				}
+
+				CategoryVO parentVO = findParentCategory(rs.getString("parentId"));
+				vo.setParentCategory(parentVO);
 				return vo;
 			}
 
 		}, parentId);
-		
-		if(list!=null&&list.size()>0) {
+
+		if (list != null && list.size() > 0) {
 			return list.get(0);
-		}else {
+		} else {
 			return null;
 		}
 	}
