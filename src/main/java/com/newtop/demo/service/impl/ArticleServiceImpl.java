@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.newtop.demo.bo.ArticleBO;
-import com.newtop.demo.entity.Category;
 import com.newtop.demo.entity.User;
 import com.newtop.demo.service.ArticleService;
 import com.newtop.demo.vo.ArticleVO;
