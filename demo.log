@@ -1,0 +1,97 @@
+2018-10-18 17:34:42.677 ERROR 8088 --- [main] o.s.b.c.l.LoggingApplicationListener     : Cannot set level: INFOÂ Â  for 'null'
+2018-10-18 17:34:42.678 ERROR 8088 --- [main] o.s.b.c.l.LoggingApplicationListener     : Cannot set level: DEBUGÂ Â  for 'org.springframework.web'
+2018-10-18 17:34:42.678 ERROR 8088 --- [main] o.s.b.c.l.LoggingApplicationListener     : Cannot set level: ERRORÂ Â  for 'org.hibernate'
+2018-10-18 17:34:42.717  INFO 8088 --- [main] com.newtop.demo.Demo01Application        : Starting Demo01Application on jm2 with PID 8088 (D:\eclipse-workspace\demo01\target\classes started by jm2 in D:\eclipse-workspace\demo01)
+2018-10-18 17:34:42.718  INFO 8088 --- [main] com.newtop.demo.Demo01Application        : No active profile set, falling back to default profiles: default
+2018-10-18 17:34:42.745  INFO 8088 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@20d28811: startup date [Thu Oct 18 17:34:42 CST 2018]; root of context hierarchy
+2018-10-18 17:34:43.405  INFO 8088 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2018-10-18 17:34:43.418  INFO 8088 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-10-18 17:34:43.419  INFO 8088 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.34
+2018-10-18 17:34:43.421  INFO 8088 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [D:\JAVA\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:/JAVA/jre/bin/server;D:/JAVA/jre/bin;D:/JAVA/jre/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;%MYSQL_HOME%\bin;D:\Git\cmd;D:\nodejs\;C:\Users\jm2\AppData\Roaming\npm;C:\Users\jm2\Desktop;;.]
+2018-10-18 17:34:43.468  INFO 8088 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-10-18 17:34:43.468  INFO 8088 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 723 ms
+2018-10-18 17:34:43.506  INFO 8088 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2018-10-18 17:34:43.509  INFO 8088 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-10-18 17:34:43.509  INFO 8088 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-10-18 17:34:43.509  INFO 8088 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-10-18 17:34:43.510  INFO 8088 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-10-18 17:34:43.646  INFO 8088 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-10-18 17:34:43.754  INFO 8088 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@20d28811: startup date [Thu Oct 18 17:34:42 CST 2018]; root of context hierarchy
+2018-10-18 17:34:43.790  INFO 8088 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/article/delete/{id}],methods=[DELETE]}" onto public void com.newtop.demo.controller.ArticleController.deleteArticeById(java.lang.String)
+2018-10-18 17:34:43.790  INFO 8088 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/article/insert],methods=[POST]}" onto public void com.newtop.demo.controller.ArticleController.insertArticle(com.newtop.demo.bo.ArticleBO)
+2018-10-18 17:34:43.791  INFO 8088 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/article/query/{id}],methods=[GET]}" onto public com.newtop.demo.vo.ArticleVO com.newtop.demo.controller.ArticleController.findArticleById(java.lang.String)
+2018-10-18 17:34:43.791  INFO 8088 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/article/update],methods=[PUT]}" onto public void com.newtop.demo.controller.ArticleController.updateArticle(com.newtop.demo.bo.ArticleBO)
+2018-10-18 17:34:43.792  INFO 8088 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-10-18 17:34:43.793  INFO 8088 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-10-18 17:34:43.808  INFO 8088 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-10-18 17:34:43.808  INFO 8088 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-10-18 17:34:43.816  INFO 8088 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : Detected @ExceptionHandler methods in articleExceptionHandler
+2018-10-18 17:34:43.938  INFO 8088 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-10-18 17:34:43.939  INFO 8088 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-10-18 17:34:43.942  INFO 8088 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2018-10-18 17:34:43.963  INFO 8088 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2018-10-18 17:34:43.965  INFO 8088 --- [main] com.newtop.demo.Demo01Application        : Started Demo01Application in 1.437 seconds (JVM running for 1.784)
+2018-10-18 17:34:47.818  INFO 8088 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-10-18 17:34:47.820  INFO 8088 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-10-18 17:34:47.832  INFO 8088 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 11 ms
+2018-10-18 17:34:47.858  INFO 8088 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2018-10-18 17:34:48.210  INFO 8088 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2018-10-18 17:34:48.241  INFO 8088 --- [http-nio-8080-exec-1] c.n.d.service.impl.ArticleServiceImpl    : 查找文章成功
+2018-10-18 17:37:35.979  INFO 8088 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-10-18 17:37:35.979  INFO 8088 --- [RMI TCP Connection(2)-127.0.0.1] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@20d28811: startup date [Thu Oct 18 17:34:42 CST 2018]; root of context hierarchy
+2018-10-18 17:37:35.981  INFO 8088 --- [RMI TCP Connection(2)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2018-10-18 17:37:35.981  INFO 8088 --- [RMI TCP Connection(2)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
+2018-10-18 17:37:35.982  INFO 8088 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2018-10-18 17:37:35.992  INFO 8088 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2018-10-18 17:37:38.161 ERROR 2140 --- [main] o.s.b.c.l.LoggingApplicationListener     : Cannot set level: INFOÂ Â  for 'null'
+2018-10-18 17:37:38.163 ERROR 2140 --- [main] o.s.b.c.l.LoggingApplicationListener     : Cannot set level: DEBUGÂ Â  for 'org.springframework.web'
+2018-10-18 17:37:38.163 ERROR 2140 --- [main] o.s.b.c.l.LoggingApplicationListener     : Cannot set level: ERRORÂ Â  for 'org.hibernate'
+2018-10-18 17:37:38.203  INFO 2140 --- [main] com.newtop.demo.Demo01Application        : Starting Demo01Application on jm2 with PID 2140 (D:\eclipse-workspace\demo01\target\classes started by jm2 in D:\eclipse-workspace\demo01)
+2018-10-18 17:37:38.204  INFO 2140 --- [main] com.newtop.demo.Demo01Application        : No active profile set, falling back to default profiles: default
+2018-10-18 17:37:38.231  INFO 2140 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@56528192: startup date [Thu Oct 18 17:37:38 CST 2018]; root of context hierarchy
+2018-10-18 17:37:38.900  INFO 2140 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2018-10-18 17:37:38.913  INFO 2140 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-10-18 17:37:38.913  INFO 2140 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.34
+2018-10-18 17:37:38.916  INFO 2140 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [D:\JAVA\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:/JAVA/jre/bin/server;D:/JAVA/jre/bin;D:/JAVA/jre/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;%MYSQL_HOME%\bin;D:\Git\cmd;D:\nodejs\;C:\Users\jm2\AppData\Roaming\npm;C:\Users\jm2\Desktop;;.]
+2018-10-18 17:37:38.965  INFO 2140 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-10-18 17:37:38.966  INFO 2140 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 735 ms
+2018-10-18 17:37:39.004  INFO 2140 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2018-10-18 17:37:39.007  INFO 2140 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-10-18 17:37:39.007  INFO 2140 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-10-18 17:37:39.007  INFO 2140 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-10-18 17:37:39.007  INFO 2140 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-10-18 17:37:39.147  INFO 2140 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-10-18 17:37:39.254  INFO 2140 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@56528192: startup date [Thu Oct 18 17:37:38 CST 2018]; root of context hierarchy
+2018-10-18 17:37:39.291  INFO 2140 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/article/update],methods=[PUT]}" onto public void com.newtop.demo.controller.ArticleController.updateArticle(com.newtop.demo.bo.ArticleBO)
+2018-10-18 17:37:39.292  INFO 2140 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/article/insert],methods=[POST]}" onto public void com.newtop.demo.controller.ArticleController.insertArticle(com.newtop.demo.bo.ArticleBO)
+2018-10-18 17:37:39.292  INFO 2140 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/article/delete/{id}],methods=[DELETE]}" onto public void com.newtop.demo.controller.ArticleController.deleteArticeById(java.lang.String)
+2018-10-18 17:37:39.292  INFO 2140 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/article/query/{id}],methods=[GET]}" onto public com.newtop.demo.vo.ArticleVO com.newtop.demo.controller.ArticleController.findArticleById(java.lang.String)
+2018-10-18 17:37:39.294  INFO 2140 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-10-18 17:37:39.294  INFO 2140 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-10-18 17:37:39.309  INFO 2140 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-10-18 17:37:39.309  INFO 2140 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-10-18 17:37:39.318  INFO 2140 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : Detected @ExceptionHandler methods in articleExceptionHandler
+2018-10-18 17:37:39.438  INFO 2140 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-10-18 17:37:39.439  INFO 2140 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-10-18 17:37:39.442  INFO 2140 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2018-10-18 17:37:39.463  INFO 2140 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2018-10-18 17:37:39.466  INFO 2140 --- [main] com.newtop.demo.Demo01Application        : Started Demo01Application in 1.451 seconds (JVM running for 1.793)
+2018-10-18 17:37:43.949  INFO 2140 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-10-18 17:37:43.949  INFO 2140 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-10-18 17:37:43.962  INFO 2140 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 13 ms
+2018-10-18 17:37:43.983  INFO 2140 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2018-10-18 17:37:44.321  INFO 2140 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2018-10-18 17:37:44.350  INFO 2140 --- [http-nio-8080-exec-1] c.n.d.service.impl.ArticleServiceImpl    : --------查找文章成功--------
+2018-10-18 17:43:10.695  INFO 2140 --- [http-nio-8080-exec-3] c.n.d.service.impl.ArticleServiceImpl    : --------新添文章成功--------
+2018-10-18 17:44:12.332  WARN 2140 --- [http-nio-8080-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 2 errors
+Field error in object 'articleBO' on field 'articleTitle': rejected value [null]; codes [NotBlank.articleBO.articleTitle,NotBlank.articleTitle,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [articleBO.articleTitle,articleTitle]; arguments []; default message [articleTitle]]; default message [不能为空]
+Field error in object 'articleBO' on field 'createId': rejected value [null]; codes [NotBlank.articleBO.createId,NotBlank.createId,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [articleBO.createId,createId]; arguments []; default message [createId]]; default message [不能为空]]
+2018-10-18 17:46:27.319  INFO 2140 --- [http-nio-8080-exec-9] c.n.d.service.impl.ArticleServiceImpl    : --------文章删除成功--------
+2018-10-18 17:47:19.247  INFO 2140 --- [http-nio-8080-exec-10] c.n.d.service.impl.ArticleServiceImpl    : --------查找文章失败--------
+2018-10-18 17:47:19.251  WARN 2140 --- [http-nio-8080-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.newtop.demo.exception.ArticleException: 不存在此文章，查找失败]
+2018-10-18 17:47:32.966  INFO 2140 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2018-10-18 17:47:32.966  INFO 2140 --- [RMI TCP Connection(2)-127.0.0.1] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@56528192: startup date [Thu Oct 18 17:37:38 CST 2018]; root of context hierarchy
+2018-10-18 17:47:32.967  INFO 2140 --- [RMI TCP Connection(2)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2018-10-18 17:47:32.968  INFO 2140 --- [RMI TCP Connection(2)-127.0.0.1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
+2018-10-18 17:47:32.969  INFO 2140 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2018-10-18 17:47:32.975  INFO 2140 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
