@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.newtop.demo.bo.ArticleBO;
 import com.newtop.demo.entity.User;
+import com.newtop.demo.exception.ArticleException;
 import com.newtop.demo.service.ArticleService;
 import com.newtop.demo.vo.ArticleVO;
 import com.newtop.demo.vo.CategoryVO;
@@ -37,7 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
 	public ArticleVO findArticleById(String id) {
 
 		String sql = "select * from article where aid = ? and isDeleted = 0";
-		ArticleVO vo = jdbcTemplate.query(sql, new RowMapper<ArticleVO>() {
+		List<ArticleVO> list = jdbcTemplate.query(sql, new RowMapper<ArticleVO>() {
 
 			@Override
 			public ArticleVO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -64,15 +65,14 @@ public class ArticleServiceImpl implements ArticleService {
 				return vo;
 			}
 
-		}, id).get(0);
+		}, id);
 
-		// 判断是否存在这个ID对应的文章，不存在则返回NULL
-		if (vo == null)
-			return null;
+		// 判断是否存在这个ID对应的文章，不存在则抛出自定义异常
+		if(list==null||list.size()<1) throw new ArticleException("不存在此文章，查找失败");
 
 		// 在中间表查找文章分类信息
-		String sql2 = "select * from category_article ca,category c,article a where a.aid = ca.aid and c.cid = ca.cid and ca.aid = ?";
-		List<CategoryVO> list = jdbcTemplate.query(sql2, new RowMapper<CategoryVO>() {
+		String sql2 = "select c.* from category_article ca,category c,article a where a.aid = ca.aid and c.cid = ca.cid and ca.aid = ?";
+		List<CategoryVO> list2 = jdbcTemplate.query(sql2, new RowMapper<CategoryVO>() {
 
 			@Override
 			public CategoryVO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -88,9 +88,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 		}, id);
 
-		vo.setCategories(list);
+		list.get(0).setCategories(list2);
 
-		return vo;
+		return list.get(0);
 	}
 
 	/**
@@ -128,14 +128,17 @@ public class ArticleServiceImpl implements ArticleService {
 	public void insertArticle(ArticleBO bo) {
 		// 使用uuid为文章添加主键id
 		String uuid = UUID.randomUUID().toString().replace("-", "");
-		String sql = "insert into article values(?,?,?,?,?)";
-		jdbcTemplate.update(sql, uuid, bo.getArticleTitle(), bo.getArticleBody(), new Date(), bo.getCreateId());
+		String sql = "insert into article values(?,?,?,?,?,?,0)";
+		int i = jdbcTemplate.update(sql, uuid, bo.getArticleTitle(), bo.getArticleBody(), new Date(), bo.getCreateId(), bo.getStatu());
+		
+		if(i<1) throw new ArticleException("文章保存失败！"); 
 
 		// 为文章添加分类
 		for (String cid : bo.getCids()) {
 			String c_a_uuid = UUID.randomUUID().toString().replace("-", "");
 			String c_a_sql = "insert into category_article values(?,?,?)";
-			jdbcTemplate.update(c_a_sql, c_a_uuid, uuid, cid);
+			i = jdbcTemplate.update(c_a_sql, c_a_uuid, uuid, cid);
+			if(i<1) throw new ArticleException("文章保存失败！"); 
 		}
 	}
 
@@ -145,16 +148,19 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public void updateArticle(ArticleBO bo) {
 		String sql1 = "update article set articleTitle = ?,articleBody = ? where aid = ?";
-		jdbcTemplate.update(sql1, bo.getArticleTitle(), bo.getArticleBody(), bo.getAid());
+		int i = jdbcTemplate.update(sql1, bo.getArticleTitle(), bo.getArticleBody(), bo.getAid());
+		if(i<1) throw new ArticleException("文章更新失败！");
 		// 删除原来的分类
 		String sql2 = "delete from category_article where aid = ?";
-		jdbcTemplate.update(sql2, bo.getAid());
-
+		i = jdbcTemplate.update(sql2, bo.getAid());
+		if(i<1) throw new ArticleException("文章更新失败！");
+		
 		// 为文章添加改变更新后的分类
 		for (String cid : bo.getCids()) {
 			String c_a_uuid = UUID.randomUUID().toString().replace("-", "");
 			String c_a_sql = "insert into category_article values(?,?,?)";
-			jdbcTemplate.update(c_a_sql, c_a_uuid, bo.getAid(), cid);
+			i = jdbcTemplate.update(c_a_sql, c_a_uuid, bo.getAid(), cid);
+			if(i<1) throw new ArticleException("文章更新失败！");
 		}
 	}
 
@@ -164,9 +170,11 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public void deleteArticleById(String id) {
 		String sql1 = "delete from category_article where aid = ?";
-		jdbcTemplate.update(sql1, id);
+		int i = jdbcTemplate.update(sql1, id);
+		if(i<1) throw new ArticleException("文章删除失败！");
 		String sql2 = "delete from article where aid = ?";
-		jdbcTemplate.update(sql2, id);
+		i = jdbcTemplate.update(sql2, id);
+		if(i<1) throw new ArticleException("文章删除失败！");
 	}
 
 }
