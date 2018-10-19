@@ -43,10 +43,9 @@ public class ArticleServiceImpl implements ArticleService {
 
 		String sql = "select * from article where aid = ? and isDeleted = 0";
 		List<ArticleVO> list = jdbcTemplate.query(sql, new RowMapper<ArticleVO>() {
-			
+
 			@Override
 			public ArticleVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-								
 				ArticleVO vo = new ArticleVO();
 				vo.setAid(rs.getString("aid"));
 				vo.setArticleTitle(rs.getString("articleTitle"));
@@ -56,14 +55,14 @@ public class ArticleServiceImpl implements ArticleService {
 				vo.setIsDeleted(rs.getInt("isDeleted") == 1 ? true : false);
 				// 根据用户ID查找文章作者
 				String sql = "select * from user where uid = ?";
-				User user = jdbcTemplate.queryForObject(sql, new RowMapper<User>() {
+				User user = jdbcTemplate.query(sql, new RowMapper<User>() {
 
 					@Override
 					public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 						return new User(rs.getString("uid"), rs.getString("uname"));
 					}
 
-				}, rs.getString("createId"));
+				}, rs.getString("createId")).get(0);
 
 				vo.setCreateUser(user);
 				return vo;
@@ -72,7 +71,7 @@ public class ArticleServiceImpl implements ArticleService {
 		}, id);
 
 		// 判断是否存在这个ID对应的文章，不存在则抛出自定义异常
-		if (list == null || list.size()<1) {
+		if (list == null || list.size() < 1) {
 			log.info("--------查找文章失败--------");
 			throw new ArticleException("不存在此文章，查找失败");
 		}
