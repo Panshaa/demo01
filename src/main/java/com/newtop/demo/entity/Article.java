@@ -2,8 +2,6 @@ package com.newtop.demo.entity;
 
 import java.util.Date;
 
-import lombok.Data;
-
 /**
  * 文章
  * @author pdl
