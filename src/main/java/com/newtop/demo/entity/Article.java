@@ -5,11 +5,10 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 文章属性实体类
+ * 文章
  * @author pdl
  * @date 2018年10月16日  
  */ 
-@Data
 public class Article {
 	//文章id
 	private String aid;
@@ -32,4 +31,59 @@ public class Article {
 	private Boolean isDeleted;
 	//创建人
 	private String createId;
+	
+	
+	public String getAid() {
+		return aid;
+	}
+	public void setAid(String aid) {
+		this.aid = aid;
+	}
+	public String getArticleTitle() {
+		return articleTitle;
+	}
+	public void setArticleTitle(String articleTitle) {
+		this.articleTitle = articleTitle;
+	}
+	public String getArticleBody() {
+		return articleBody;
+	}
+	public void setArticleBody(String articleBody) {
+		this.articleBody = articleBody;
+	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	public Integer getStatu() {
+		return statu;
+	}
+	public void setStatu(Integer statu) {
+		this.statu = statu;
+	}
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+	public String getCreateId() {
+		return createId;
+	}
+	public void setCreateId(String createId) {
+		this.createId = createId;
+	}
+	public static Integer getDraft() {
+		return DRAFT;
+	}
+	public static Integer getRelease() {
+		return RELEASE;
+	}
+	public static Integer getWithdraw() {
+		return WITHDRAW;
+	}
+	
+	
 }

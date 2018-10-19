@@ -5,9 +5,6 @@ import java.util.List;
 
 import com.newtop.demo.entity.User;
 
-import lombok.Data;
-
-@Data
 public class ArticleVO {
 	// 文章id
 	private String aid;
@@ -25,4 +22,55 @@ public class ArticleVO {
 	private User createUser;
 	// 文章分类
 	private List<CategoryVO> categories;
+	
+	public String getAid() {
+		return aid;
+	}
+	public void setAid(String aid) {
+		this.aid = aid;
+	}
+	public String getArticleTitle() {
+		return articleTitle;
+	}
+	public void setArticleTitle(String articleTitle) {
+		this.articleTitle = articleTitle;
+	}
+	public String getArticleBody() {
+		return articleBody;
+	}
+	public void setArticleBody(String articleBody) {
+		this.articleBody = articleBody;
+	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	public Integer getStatu() {
+		return statu;
+	}
+	public void setStatu(Integer statu) {
+		this.statu = statu;
+	}
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+	public User getCreateUser() {
+		return createUser;
+	}
+	public void setCreateUser(User createUser) {
+		this.createUser = createUser;
+	}
+	public List<CategoryVO> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<CategoryVO> categories) {
+		this.categories = categories;
+	}
+	
+	
 }
